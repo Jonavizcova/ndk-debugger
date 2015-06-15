@@ -1,9 +1,9 @@
 {Point, Range, TextEditor, TextBuffer, CompositeDisposable} = require 'atom'
 {View} = require 'atom-space-pen-views'
-GDB = require './backend/gdb/gdb'
+GDB = require '../backend/gdb/gdb'
 fs = require 'fs'
 path = require 'path'
-AsmViewer = require './asm-viewer'
+AsmViewer = require '../asm-viewer'
 
 
 module.exports =
