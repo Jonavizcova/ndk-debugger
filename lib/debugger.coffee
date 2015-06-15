@@ -1,5 +1,5 @@
 OpenDialogView = require './open-dialog-view'
-DebuggerView = require './debugger-view'
+DebuggerView = require './ndk/ndk-gdb-debugger-view'
 {CompositeDisposable} = require 'atom'
 fs = require 'fs'
 
