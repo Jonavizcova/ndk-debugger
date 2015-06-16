@@ -11,15 +11,15 @@ module.exports =
       RUNNING: 1
       ERROR: 2
 
-    constructor: (targetProject) ->
+    constructor: (targetProject,consoleView) ->
       @breakPoints = []
       @token = 0
       @handler = {}
       @emitter = new Emitter
       @stdoutMessage = "";
+      @consoleView = consoleView
 
       stdout = (lines) =>
-        console.log(lines)
         for line in lines.split('\n')
           switch line[0]
             when '+' then null  # status-async-output
@@ -53,7 +53,7 @@ module.exports =
 
       if fs.existsSync(adbPath)
         args.push("--adb=#{adbPath}")
-    
+
       args.push("--project=#{targetProject}")
       @process = new BufferedProcess({command, args, stdout, stderr}).process
       @stdin = @process.stdin

@@ -50,6 +50,7 @@ module.exports = Debugger =
 
   debug: (openDialog,debuggerView)->
     @openDialogView = new openDialog (input) =>
+      @debuggerView.destroy() if @debuggerView
       if input.isValid == true
         @debuggerView = new debuggerView(input)
 

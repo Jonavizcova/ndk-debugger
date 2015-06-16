@@ -4,6 +4,7 @@ NdkGdb = require '../ndk/ndk-gdb'
 path = require 'path'
 AsmViewer = require '../asm-viewer'
 DebuggerView = require '../base/debugger-view'
+NDKConsoleView = require './ndk-console-view'
 
 
 module.exports =
@@ -26,7 +27,8 @@ class NDKDebuggerView extends DebuggerView
 
 
   initialize: (input) ->
-    @GDB = new NdkGdb(input.projectPath)
+    @consoleView = new NDKConsoleView()
+    @GDB = new NdkGdb(input.projectPath,@consoleView)
     @targetLable.text(input.projectPath)
     mainBreak = false;
     @projectDirectories = []
@@ -55,8 +57,12 @@ class NDKDebuggerView extends DebuggerView
     }
 
     @panel = atom.workspace.addTopPanel(item: @, visible: true)
+    @panel = atom.workspace.addBottomPanel(item: @consoleView,visible: true)
 
     @listExecFile()
+
+  echoToConsole: (msg)->
+    @consoleView.echo msg
 
   handleEvents: ->
     @subscriptions = new CompositeDisposable
@@ -123,5 +129,5 @@ class NDKDebuggerView extends DebuggerView
               gotoNextOrStep = true;
 
           if(gotoNextOrStep)
-              console.log("file (#{fullpath}) not in project paths... ")
+              @consoleView.echoToConsole "file (#{fullpath}) not in project paths..."
               @GDB.exitFunction (result) ->

@@ -37,7 +37,6 @@ module.exports =
 
       command = 'gdb'
       args = ['--interpreter=mi2', target] #
-      console.log("target", target)
       @process = new BufferedProcess({command, args, stdout, stderr}).process
       @stdin = @process.stdin
       @status = STATUS.NOTHING
@@ -150,6 +149,11 @@ module.exports =
 
     step: (handler) ->
       command = 'exec-step'
+      @postCommand command, (clazz, result) =>
+        handler(clazz == RESULT.RUNNING)
+
+    exitFunction: (handler) ->
+      command = 'exec-finish'
       @postCommand command, (clazz, result) =>
         handler(clazz == RESULT.RUNNING)
 
