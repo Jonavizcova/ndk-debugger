@@ -1,16 +1,20 @@
-# atom-debugger package
+# Kutti Ndk Debugger package
 
-This is a debugger for atom.io, which now only support `gdb`.
+This is a visual android ndk debugger for atom.io
 
-This package is still in very early stage. In fact, I'm not sure whether there are people using atom.io to debug.
+This is an alpha quality release.
 
-Please feel free to create issues if you have any problem or good ideas, thank you!
+The debugger needs a custom ndk-gdb script with --interpreter=mi2 added to the argument list of gdb
 
-Before debugging, please add your source root directory into the tree-view.
-
-![screenshot](https://raw.githubusercontent.com/xndcn/atom-debugger/master/screenshot.png?raw=true)
+To create the custom script follow these steps:
+  1. Create a copy of the orinigal script name it ndk-gdb-atom
+  2. Replace "$GDBCLIENT -x \`native_path $GDBSETUP\`"  line in ndk-gdb-atom file by  "$GDBCLIENT `-interpreter=mi2` -x \`native_path $GDBSETUP\`" 
+  3. Add execute permissions for the newly created script eg. chmod +x ndk-gdb-atom
+  
+Please mention the path of  `ndk-gdb-atom` and android `adb` in the package settings.
 
 
 ## TO DO
 
 * Add `watch` view to display variable value.
+* Add `stack frame` view  
