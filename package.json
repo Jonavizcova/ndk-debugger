@@ -1,12 +1,13 @@
 {
-  "name": "atom-debugger",
+  "name": "kutti-ndk-debugger",
   "main": "./lib/debugger",
-  "version": "0.1.3",
-  "description": "GDB debbuger for Atom",
-  "activationCommands": {
-    "atom-workspace": "debugger:toggle"
-  },
-  "repository": "https://github.com/xndcn/atom-debugger",
+  "version": "0.1.0",
+  "description": "Android NDK debbuger for Atom",
+  "activationCommands": [
+    {"atom-workspace": "KuttiDebugger:start"},
+    {"atom-workspace": "KuttiDebugger:settings"}
+  ],
+  "repository": "https://github.com/mr-kutti/atom-debugger",
   "license": "MIT",
   "engines": {
     "atom": ">=0.174.0 <2.0.0"

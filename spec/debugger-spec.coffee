@@ -12,7 +12,7 @@ describe "Debugger", ->
     workspaceElement = atom.views.getView(atom.workspace)
     activationPromise = atom.packages.activatePackage('debugger')
 
-  describe "when the debugger:toggle event is triggered", ->
+  describe "when the KuttiDebugger:start event is triggered", ->
     it "hides and shows the modal panel", ->
       # Before the activation event the view is not on the DOM, and no panel
       # has been created
@@ -20,7 +20,7 @@ describe "Debugger", ->
 
       # This is an activation event, triggering it will cause the package to be
       # activated.
-      atom.commands.dispatch workspaceElement, 'debugger:toggle'
+      atom.commands.dispatch workspaceElement, 'KuttiDebugger:start'
 
       waitsForPromise ->
         activationPromise
@@ -33,7 +33,7 @@ describe "Debugger", ->
 
         debuggerPanel = atom.workspace.panelForItem(debuggerElement)
         expect(debuggerPanel.isVisible()).toBe true
-        atom.commands.dispatch workspaceElement, 'debugger:toggle'
+        atom.commands.dispatch workspaceElement, 'KuttiDebugger:start'
         expect(debuggerPanel.isVisible()).toBe false
 
     it "hides and shows the view", ->
@@ -49,7 +49,7 @@ describe "Debugger", ->
 
       # This is an activation event, triggering it causes the package to be
       # activated.
-      atom.commands.dispatch workspaceElement, 'debugger:toggle'
+      atom.commands.dispatch workspaceElement, 'KuttiDebugger:start'
 
       waitsForPromise ->
         activationPromise
@@ -58,5 +58,5 @@ describe "Debugger", ->
         # Now we can test for view visibility
         debuggerElement = workspaceElement.querySelector('.debugger')
         expect(debuggerElement).toBeVisible()
-        atom.commands.dispatch workspaceElement, 'debugger:toggle'
+        atom.commands.dispatch workspaceElement, 'KuttiDebugger:start'
         expect(debuggerElement).not.toBeVisible()

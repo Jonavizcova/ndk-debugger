@@ -43,7 +43,7 @@ class DebuggerView extends View
     @menu = atom.contextMenu.add {
       'atom-text-editor': [{
         label: 'Toggle Breakpoint',
-        command: 'debugger:toggle-breakpoint',
+        command: 'KuttiDebugger:toggle-breakpoint',
         created: contextMenuCreated
       }]
     }
@@ -190,7 +190,7 @@ class DebuggerView extends View
   handleEvents: ->
     @subscriptions = new CompositeDisposable
 
-    @subscriptions.add atom.commands.add 'atom-workspace', 'debugger:toggle-breakpoint': =>
+    @subscriptions.add atom.commands.add 'atom-workspace', 'KuttiDebugger:toggle-breakpoint': =>
       @debuggerView.toggleBreak(@getActiveTextEditor(), @contextLine)
 
     @subscriptions.add atom.workspace.observeTextEditors (editor) =>

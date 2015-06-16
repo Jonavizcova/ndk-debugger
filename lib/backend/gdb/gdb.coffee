@@ -8,7 +8,7 @@ module.exports =
       NOTHING: 0
       RUNNING: 1
 
-    constructor: (targetProject) ->
+    constructor: (target) ->
       @token = 0
       @handler = {}
       @emitter = new Emitter
@@ -35,9 +35,9 @@ module.exports =
 
       stderr = (lines) =>
 
-      command = '/Users/rpandian/Library/Android/ndk/android-ndk-r10d//ndk-gdb-atom'
-      args = ["--adb=/Users/rpandian/Library/Android/sdk/platform-tools//adb","--project=#{targetProject}"] #
-      console.log("arg", "--project=#{targetProject}")
+      command = 'gdb'
+      args = ['--interpreter=mi2', target] #
+      console.log("target", target)
       @process = new BufferedProcess({command, args, stdout, stderr}).process
       @stdin = @process.stdin
       @status = STATUS.NOTHING

@@ -21,6 +21,7 @@ class NDKGDBOpenDialogView extends OpenDialogBase
       input = {}
       input.isValid = true
       input.projectPath = @targetEditor.getText()
+      atom.config.set('kutti-ndk-debugger.projectPath', input.projectPath)
       if fs.existsSync(input.projectPath)
         @destroy()
         handler(input)
@@ -35,3 +36,10 @@ class NDKGDBOpenDialogView extends OpenDialogBase
 
   initialize: (handler) ->
     super handler
+    projectPath = atom.config.get('kutti-ndk-debugger.projectPath')
+    @targetEditor.setText(projectPath) if fs.existsSync(projectPath)
+    paths = atom.project.getPaths()
+    for path in paths
+      if fs.existsSync(path+"/AndroidManifest.xml")
+         @targetEditor.setText(path)
+         break

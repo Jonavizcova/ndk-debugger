@@ -7,6 +7,11 @@
 .atom-debugger {
   padding: @component-padding/2;
 
+  @min-width: 200px; // min width before it starts scrolling
+  @button-width: 120px;        // Find + Replace buttons
+  @option-button-width: 200px; // Replace All + option buttons
+  @item-width: 260px;          // wrap block width
+
   .header {
     padding: @component-padding/4 @component-padding/2;
   }
@@ -17,6 +22,26 @@
   .sub-title {
     padding-left: @component-padding;
     color: @text-color-subtle;
+  }
+
+  .input-block {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    min-width: @min-width;
+  }
+  .input-block-item {
+    display: flex;
+    flex: 1;
+    padding: @component-padding / 2;
+  }
+
+  .input-block-item {
+    flex: 1 1 @item-width;
+  }
+
+  .input-block-item--flex {
+    flex: 100 1 @item-width;
   }
 
   .checkbox {

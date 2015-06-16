@@ -43,9 +43,18 @@ module.exports =
       stderr = (lines) =>
         @errorMessage = lines
 
-      command = '/Users/rpandian/Library/Android/ndk/android-ndk-r10d//ndk-gdb-atom'
-      args = ["--adb=/Users/rpandian/Library/Android/sdk/platform-tools//adb","--project=#{targetProject}"] #
-      console.log("arg", "--project=#{targetProject}")
+      command = '/ndk-gdb-atom'
+      ndkGdbPath = atom.config.get('kutti-ndk-debugger.ndkGdbPath')
+      adbPath = atom.config.get('kutti-ndk-debugger.adbPath')
+
+      args = []
+      if fs.existsSync(ndkGdbPath)
+        command = ndkGdbPath
+
+      if fs.existsSync(adbPath)
+        args.push("--adb=#{adbPath}")
+    
+      args.push("--project=#{targetProject}")
       @process = new BufferedProcess({command, args, stdout, stderr}).process
       @stdin = @process.stdin
       @status = STATUS.NOTHING

@@ -3,12 +3,16 @@
   {
     'label': 'Packages'
     'submenu': [
-      'label': 'Atom Debugger'
+      'label': 'Kutti NDK Debugger'
       'submenu': [
         {
-          'label': 'Toggle Debugging...'
-          'command': 'debugger:toggle'
+          'label': 'Debug'
+          'command': 'KuttiDebugger:start'
         }
+        # {
+        #   'label': 'Settings'
+        #   'command': 'KuttiDebugger:settings'
+        # }
       ]
     ]
   }
