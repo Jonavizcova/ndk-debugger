@@ -20,6 +20,8 @@ module.exports =
       @consoleView = consoleView
 
       stdout = (lines) =>
+        #@consoleView.echoToConsole lines
+        console.log(lines)
         for line in lines.split('\n')
           switch line[0]
             when '+' then null  # status-async-output
