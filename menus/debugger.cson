@@ -3,7 +3,7 @@
   {
     'label': 'Packages'
     'submenu': [
-      'label': 'Kutti NDK Debugger'
+      'label': 'Android NDK Debugger'
       'submenu': [
         {
           'label': 'Debug'
