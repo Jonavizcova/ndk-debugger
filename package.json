@@ -1,5 +1,5 @@
 {
-  "name": "ndk-debugger",
+  "name": "kutt-ndk-debugger",
   "main": "./lib/debugger",
   "version": "0.1.0",
   "description": "Android NDK debbuger for Atom",
