@@ -29,6 +29,7 @@ class NDKDebuggerView extends DebuggerView
   initialize: (input) ->
     @consoleView = new NDKConsoleView()
     @GDB = new NdkGdb(input.projectPath,@consoleView)
+    @consoleView.setGDB @GDB
     @targetLable.text(input.projectPath)
     mainBreak = false;
     @projectDirectories = []

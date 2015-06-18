@@ -166,3 +166,6 @@ module.exports =
       @handler[@token] = handler
       @stdin.write("#{@token}-#{command}\n")
       @token = @token + 1
+
+    echoToStdin: (msg) ->
+      @stdin.write("#{msg}\n")

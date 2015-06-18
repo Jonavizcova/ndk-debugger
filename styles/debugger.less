@@ -4,6 +4,11 @@
 // for a full listing of what's available.
 @import "ui-variables";
 
+.ndk-gdb-text-view {
+  height: 200px;
+  overflow-y: auto;
+}
+
 .atom-debugger {
   padding: @component-padding/2;
 
@@ -23,6 +28,13 @@
     padding-left: @component-padding;
     color: @text-color-subtle;
   }
+
+  .ndk-gdb-console-view {
+    height: 200;
+    overflow: auto;
+  }
+
+
 
   .input-block {
     display: flex;

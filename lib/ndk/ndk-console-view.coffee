@@ -1,21 +1,28 @@
-{ScrollView} = require 'atom-space-pen-views'
+{View, TextEditorView} = require 'atom-space-pen-views'
+NDKScrollView = require './ndk-console-scroll-view'
+
 
 
 module.exports =
-class NDKConsoleView extends ScrollView
+class NDKConsoleView extends View
   @content: ->
-    @div class: 'ndk-console', =>
-#       @header class: 'header', =>
-#         @subview 'targetEditor', new TextEditorView(mini: true, placeholderText: 'Android Project Path')
+    @div =>
+      @subview 'scrollView', new NDKScrollView()
+      @subview 'commandInput', new TextEditorView(mini: true, placeholderText: 'Gdb Command Input')
 
   initialize: ->
-    @textBuffer = "'NDK Console View"
-    super
-    @height(150)
-    @text(@textBuffer)
+    @commandInput.preempt('keydown',@onKeyDown)
 
+  setGDB: (gdb)->
+    @GDB = gdb
 
 
   echoToConsole: (newText)->
-    @textBuffer += '\n' + newText
-    @text(@textBuffer)
+    @scrollView.echoToConsole newText
+
+
+  onKeyDown: (event,elementName) =>
+    if event.which == 13
+      @GDB.echoToStdin @commandInput.getText()
+      event.preventDefault()
+    true
