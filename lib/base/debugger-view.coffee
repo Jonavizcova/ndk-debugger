@@ -5,7 +5,6 @@ fs = require 'fs'
 path = require 'path'
 AsmViewer = require '../asm-viewer'
 
-
 module.exports =
 class DebuggerView extends View
   @content: ->
@@ -29,6 +28,7 @@ class DebuggerView extends View
     @GDB.setSourceDirectories atom.project.getPaths(), (done) ->
 
     @breaks = {}
+    @breakPoints = [];
     @stopped = {marker: null, fullpath: null, line: null}
     @asms = {}
     @cachedEditors = {}
@@ -50,7 +50,7 @@ class DebuggerView extends View
 
     @panel = atom.workspace.addBottomPanel(item: @, visible: true)
 
-    @insertMainBreak() if mainBreak
+    @loadBreakPoints()
     @listExecFile()
 
   getActiveTextEditor: ->
@@ -125,13 +125,43 @@ class DebuggerView extends View
       if done
         marker.destroy()
         delete @breaks[fullpath][line]
+        for breakPoint, i in @breakPoint
+          if object.fullpath == fullPath && object.line == line
+            @breakPoints = @breakPoints.splice(i, 1);
+            break
+
+  insertBreakForLocation :(fullPath,line,handler) ->
+    @GDB.insertBreak {location: "#{fullPath}:#{line+1}"}, (abreak) =>
+      if abreak
+        editor = @getEditor(fullPath)
+        marker = @markBreakLine(editor, line)
+        @breaks[fullPath][line] = {abreak, marker}
+        @breakPoints ?=[]
+        @breakPoints.push({path:fullPath,line:line});
+        handler(abreak)
 
   insertBreak: (editor, line) ->
-    fullpath = editor.getPath()
-    @GDB.insertBreak {location: "#{fullpath}:#{line+1}"}, (abreak) =>
-      if abreak
-        marker = @markBreakLine(editor, line)
-        @breaks[fullpath][line] = {abreak, marker}
+    fullPath = editor.getPath()
+    @insertBreakForLocation fullPath, line, (abreak) =>
+      @saveBreakPoints()
+
+  saveBreakPoints: ->
+    @BreakPointsFile = atom.project.getPaths()[0] + "/.atomBreakPoints"
+    jsonStringForBreakPoints = JSON.stringify(@breakPoints);
+    fs.writeFile @BreakPointsFile, jsonStringForBreakPoints, (err)=>
+      if err
+        console.log("Error saving Breakpoints"+err);
+    console.log("Saving Breakpoints");
+
+  loadBreakPoints: ->
+    @BreakPointsFile = atom.project.getPaths()[0] + "/.atomBreakPoints"
+    fs.readFile @BreakPointsFile,'utf8', (err,data)=>
+      if(err)
+        console.log("Error reading breakpoints file")
+      else
+        @breakPoints = JSON.parse(data)
+        for breakPoint, i in @breakPoints
+          @insertBreakForLocation breakPoint.path, breakPoint.line, =>
 
   insertBreakWithoutEditor: (fullpath, line) ->
     @breaks[fullpath] ?= {}

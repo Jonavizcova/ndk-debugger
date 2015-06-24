@@ -29,6 +29,7 @@
       @ndkButton.on 'click', (e) =>
         @selectPath @ndkPathEditor
       @saveButton.on 'click', (e) =>
-          @selectPath @sdkPathEditor
+          @destroy()
+
       @cancelButton.on 'click', (e) =>
-          @selectPath @ndkPathEditor
+            @destroy()

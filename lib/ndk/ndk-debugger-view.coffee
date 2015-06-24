@@ -57,9 +57,11 @@ class NDKDebuggerView extends DebuggerView
       }]
     }
 
-    @panel = atom.workspace.addTopPanel(item: @, visible: true)
+    @gdbPanel = atom.workspace.addTopPanel(item: @, visible: true)
     @panel = atom.workspace.addBottomPanel(item: @consoleView,visible: true)
 
+    @breakPoints = [];
+    @loadBreakPoints()
     @listExecFile()
 
   echoToConsole: (msg)->
@@ -132,3 +134,7 @@ class NDKDebuggerView extends DebuggerView
           if(gotoNextOrStep)
               @consoleView.echoToConsole "file (#{fullpath}) not in project paths..."
               @GDB.exitFunction (result) ->
+
+  destroy: ->
+    super
+    @gdbPanel.destroy()
