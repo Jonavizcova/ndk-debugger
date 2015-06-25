@@ -167,5 +167,5 @@ module.exports =
       @stdin.write("#{@token}-#{command}\n")
       @token = @token + 1
 
-    echoToStdin: (msg) ->
-      @stdin.write("#{msg}\n")
+    executeUserCommand: (msg) ->
+      @stdin.write("interpreter-exec console \"#{msg}\"\n")

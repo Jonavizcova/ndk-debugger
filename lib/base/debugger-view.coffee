@@ -125,8 +125,8 @@ class DebuggerView extends View
       if done
         marker.destroy()
         delete @breaks[fullpath][line]
-        for breakPoint, i in @breakPoint
-          if object.fullpath == fullPath && object.line == line
+        for breakPoint, i in @breakPoints
+          if breakPoint.path == fullPath && breakPoint.line == line
             @breakPoints = @breakPoints.splice(i, 1);
             break
 

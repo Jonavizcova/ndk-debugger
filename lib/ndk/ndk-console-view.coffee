@@ -1,6 +1,6 @@
 {View, TextEditorView} = require 'atom-space-pen-views'
 NDKScrollView = require './ndk-console-scroll-view'
-{MessagePanelView, LineMessageView} = require 'atom-message-panel'
+{MessagePanelView, PlainMessageView} = require 'atom-message-panel'
 
 
 
@@ -20,6 +20,7 @@ class NDKConsoleView extends View
     @messages = new MessagePanelView
         title: 'ndk-gdb Output!'
         closeMethod: 'hide'
+        autoScroll: true
     @messages.attach()
 
 
@@ -29,15 +30,15 @@ class NDKConsoleView extends View
 
   echoToConsole: (newText)->
   #  @scrollView.echoToConsole newText
-     @messages.add new LineMessageView
-         line: 1
-         character: 4
+     @messages.add new PlainMessageView
          message: newText
+     @messages.updateScroll()
+
 
 
 
   onKeyDown: (event,elementName) =>
     if event.which == 13
-      @GDB.echoToStdin @commandInput.getText()
+      @GDB.executeUserCommand @commandInput.getText()
       event.preventDefault()
     true
