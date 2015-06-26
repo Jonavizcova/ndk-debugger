@@ -3,11 +3,15 @@
   {
     'label': 'Packages'
     'submenu': [
-      'label': 'Android NDK Debugger'
+      'label': 'NDK/NaCl Debugger'
       'submenu': [
         {
-          'label': 'Debug'
+          'label': 'Debug NDK'
           'command': 'KuttiDebugger:start'
+        },
+        {
+          'label': 'Debug NaCl'
+          'command': 'KuttiDebugger:naclStart'
         }
         # {
         #   'label': 'Settings'

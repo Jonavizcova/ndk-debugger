@@ -1,5 +1,7 @@
 NDKGDBOpenDialogView = require './ndk/ndk-open-dialog-view'
+NaClGDBOpenDialogView = require './nacl/nacl-open-dialog-view'
 NDKDebuggerView = require './ndk/ndk-debugger-view'
+NaClDebuggerView = require './nacl/nacl-debugger-view'
 NDKSettingsView = require './ndk/ndk-settings'
 {CompositeDisposable} = require 'atom'
 fs = require 'fs'
@@ -24,6 +26,7 @@ module.exports = Debugger =
 
     # Register command that toggles this view
     @subscriptions.add atom.commands.add 'atom-workspace', 'KuttiDebugger:start': => @startDebugging('ndk')
+    @subscriptions.add atom.commands.add 'atom-workspace', 'KuttiDebugger:naclStart': => @startDebugging('nacl')
     # @subscriptions.add atom.commands.add 'atom-workspace', 'KuttiDebugger:settings': => @showSettings('ndk')
     @subscriptions.add atom.commands.add 'atom-workspace', 'core:close': =>
       @debuggerView?.destroy()
@@ -47,6 +50,7 @@ module.exports = Debugger =
     switch whichDebugger
       when "ndk" then @debug NDKGDBOpenDialogView, NDKDebuggerView
       when "gdb" then @debug GDBOpenDialogView, GDBDebuggerView
+      when "nacl" then @debug NaClGDBOpenDialogView,NaClDebuggerView
 
   debug: (openDialog,debuggerView)->
     @openDialogView = new openDialog (input) =>

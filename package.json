@@ -5,7 +5,8 @@
   "description": "Android NDK debbuger for Atom",
   "activationCommands": [
     {
-      "atom-workspace": "KuttiDebugger:start"
+      "atom-workspace": "KuttiDebugger:start",
+      "atom-workspace": "KuttiDebugger:naclStart"
     },
     {
       "atom-workspace": "KuttiDebugger:settings"
