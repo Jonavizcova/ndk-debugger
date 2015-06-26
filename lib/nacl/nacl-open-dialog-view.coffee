@@ -23,6 +23,7 @@ class NaClGDBOpenDialogView extends OpenDialogBase
       input.gdbPath = @targetEditor.getText()
       input.irtPath = @irtPathEditor.getText()
       atom.config.set('kutti-ndk-debugger.naclGdbPath', input.gdbPath)
+      atom.config.set('kutti-ndk-debugger.irtPath', input.irtPath)
       if fs.existsSync(input.gdbPath)
         @destroy()
         handler(input)
@@ -39,3 +40,5 @@ class NaClGDBOpenDialogView extends OpenDialogBase
     super handler
     projectPath = atom.config.get('kutti-ndk-debugger.naclGdbPath')
     @targetEditor.setText(projectPath) if fs.existsSync(projectPath)
+    irtPath = atom.config.get('kutti-ndk-debugger.irtPath')
+    @irtPathEditor.setText(irtPath) if fs.existsSync(irtPath)
