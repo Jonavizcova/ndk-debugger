@@ -1,4 +1,5 @@
-{BufferedProcess, Emitter} = require 'atom'
+{Emitter} = require 'atom'
+BufferedProcess = require '../atom-code/BufferedProcess'
 {RESULT, parser} = require '../backend/gdb/gdb-mi-parser'
 GDB = require '../backend/gdb/gdb'
 fs = require 'fs'
@@ -88,7 +89,7 @@ module.exports =
       else
         console.log('adb path not set')
 
-      #args.push("--project=#{targetProject}")
+      args.push("--project=#{targetProject}")
       @process = new BufferedProcess({command, args, stdout, stderr}).process
       @stdin = @process.stdin
       @status = STATUS.NOTHING
@@ -131,3 +132,7 @@ module.exports =
              console.log(error)
              alert(error.message);
       atomNdkPath
+
+    # interrupt: (handler) ->
+    #   alert('SIGINT')
+    #   @process.kill 'SIGINT'

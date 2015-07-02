@@ -19,7 +19,9 @@
   },
   "dependencies": {
     "atom-space-pen-views": "^2.0.0",
-    "atom-message-panel": "1.2.4"
+    "atom-message-panel": "1.2.4",
+    "underscore-plus": "*",
+    "event-kit": "*"
   },
   "keywords": [
     "debugger",

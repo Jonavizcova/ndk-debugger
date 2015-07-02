@@ -22,7 +22,7 @@ class NDKDebuggerView extends DebuggerView
           @div class: 'btn disabled', outlet: 'stepOutButton', 'Step Out'
           @div class: 'btn disabled', outlet: 'disableButton', 'Disable breakPoints'
           @div class: 'btn disabled', outlet: 'interruptButton', 'Interrupt'
-          @div class: 'btn disabled', outlet: 'runButton', 'Run'
+          #@div class: 'btn disabled', outlet: 'runButton', 'Run'
 
 
 
@@ -84,8 +84,8 @@ class NDKDebuggerView extends DebuggerView
     @subscriptions.add atom.project.onDidChangePaths (paths) =>
       @GDB.setSourceDirectories paths, (done) ->
 
-    @runButton.on 'click', =>
-      @GDB.run (result) ->
+    # @runButton.on 'click', =>
+    #   @GDB.run (result) ->
 
     @continueButton.on 'click', =>
       @GDB.continue (result) ->
@@ -134,6 +134,18 @@ class NDKDebuggerView extends DebuggerView
           if(gotoNextOrStep)
               @consoleView.echoToConsole "file (#{fullpath}) not in project paths..."
               @GDB.exitFunction (result) ->
+
+  goExitedStatus: ->
+    @stepOutButton.addClass('disabled')
+    super
+
+  goStoppedStatus: ->
+    @stepOutButton.removeClass('disabled')
+    super
+
+  goRunningStatus: ->
+    @stepOutButton.addClass('disabled')
+    super
 
   destroy: ->
     super
