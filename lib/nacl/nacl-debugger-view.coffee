@@ -12,7 +12,7 @@ class NDKDebuggerView extends DebuggerView
   @content: ->
     @div class: 'atom-debugger', =>
       @header class: 'header', =>
-        @span class: 'header-item title', 'Kutti NDK Debugger'
+        @span class: 'header-item title', 'Nacl/NDK Debugger'
         @span class: 'header-item sub-title', outlet: 'targetLable'
       @div class: 'btn-toolbar', =>
         @div class: 'btn-group', =>

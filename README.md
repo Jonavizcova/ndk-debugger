@@ -1,4 +1,4 @@
-# Kutti Ndk Debugger package
+# Nacl/ Ndk Debugger package
 
 This is a atom.io package for visual debugger for android ndk and nacl
 

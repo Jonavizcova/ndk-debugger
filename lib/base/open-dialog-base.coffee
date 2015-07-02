@@ -6,7 +6,7 @@ class OpenDialogBase extends View
   @content: ->
     @div tabIndex: -1, class: 'atom-debugger', =>
       @div class: 'block', =>
-        @label 'Kutti Debugger'
+        @label 'Gdb Debugger'
         @subview 'targetEditor', new TextEditorView(mini: true, placeholderText: 'Target Binary Path')
       @div class: 'block', =>
         @button class: 'inline-block btn', outlet: 'startButton', 'Start'
