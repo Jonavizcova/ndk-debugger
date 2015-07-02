@@ -30,17 +30,26 @@ module.exports =
             when '@' then null  # target-stream-output
             when '&' then null  # log-stream-output
             when '*'            # exec-async-output
-              {clazz, result} = parser.parse(line.substr(1))
-              @emitter.emit 'exec-async-output', {clazz, result}
-              @emitter.emit "exec-async-running", result if clazz == RESULT.RUNNING
-              @emitter.emit "exec-async-stopped", result if clazz == RESULT.STOPPED
-              displayInConsole = false;
+              try
+                  {clazz, result} = parser.parse(line.substr(1))
+                  @emitter.emit 'exec-async-output', {clazz, result}
+                  @emitter.emit "exec-async-running", result if clazz == RESULT.RUNNING
+                  @emitter.emit "exec-async-stopped", result if clazz == RESULT.STOPPED
+                  displayInConsole = false;
+              catch error
+                console.log("line: #{line} not understanable by the parser")
+                console.error("Error: #{error.message}")
+
             else                # result-record
               if line[0] <= '9' and line[0] >= '0'
-                {token, clazz, result} = parser.parse(line)
-                @handler[token](clazz, result)
-                delete @handler[token]
-                displayInConsole = false
+                try
+                  {token, clazz, result} = parser.parse(line)
+                  @handler[token](clazz, result)
+                  delete @handler[token]
+                  displayInConsole = false
+                catch error
+                  console.log("line: #{line} not understanable by the parser")
+                  console.error("Error: #{error.message}")
 
         if displayInConsole
            @consoleView.echoToConsole lines
@@ -49,7 +58,7 @@ module.exports =
       stderr = (lines) =>
         @errorMessage = lines
 
-      command = atom.config.get('kutti-ndk-debugger.naclGdbPath')
+      command = atom.config.get("#{atom._debugger.name}.naclGdbPath")
 
       args = []
 

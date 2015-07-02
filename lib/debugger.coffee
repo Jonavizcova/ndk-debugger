@@ -21,6 +21,8 @@ module.exports = Debugger =
       default: "This can be set from the menu too!"
 
   activate: (state) ->
+    atom._debugger = {}
+    atom._debugger.name = "ndk-nacl-debugger"
     # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
     @subscriptions = new CompositeDisposable
 

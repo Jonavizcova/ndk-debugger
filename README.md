@@ -1,17 +1,13 @@
 # Kutti Ndk Debugger package
 
-This is a visual android ndk debugger for atom.io
+This is a atom.io package for visual debugger for android ndk and nacl
 
 This is an alpha quality release.
 
-The debugger needs a custom ndk-gdb script with --interpreter=mi2 added to the argument list of gdb
+Please mention the path of  `ndk-gdb` and android `adb` in the package settings.
 
-To create the custom script follow these steps:
-  1. Create a copy of the orinigal script name it ndk-gdb-atom
-  2. Replace "$GDBCLIENT -x \`native_path $GDBSETUP\`"  line in ndk-gdb-atom file by  "$GDBCLIENT `-interpreter=mi2` -x \`native_path $GDBSETUP\`" 
-  3. Add execute permissions for the newly created script eg. chmod +x ndk-gdb-atom
-  
-Please mention the path of  `ndk-gdb-atom` and android `adb` in the package settings.
+The debugger will try to create a modified version of ndk-gdb and will call if ndk-gdb-atom
+  The debugger needs write permission to the ndk directory
 
 
 ## TO DO
