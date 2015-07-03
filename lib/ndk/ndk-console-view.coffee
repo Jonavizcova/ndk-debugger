@@ -12,7 +12,6 @@ module.exports =
 class NDKConsoleView extends View
   @content: ->
     @div =>
-      #@subview 'scrollView', new NDKScrollView()
       @subview 'commandInput', new TextEditorView(mini: true, placeholderText: 'Gdb Command Input')
 
   initialize: ->
@@ -35,10 +34,11 @@ class NDKConsoleView extends View
      @messages.updateScroll()
 
 
-
-
   onKeyDown: (event,elementName) =>
     if event.which == 13
       @GDB.executeUserCommand @commandInput.getText()
       event.preventDefault()
     true
+
+  destroy: =>
+    @messages.close()

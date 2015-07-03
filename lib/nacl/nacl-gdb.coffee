@@ -68,3 +68,6 @@ module.exports =
       @stdin.write("target remote localhost:4014\n")
       @stdin.write("nacl-irt #{irtPath}\n")
       @status = STATUS.NOTHING
+
+    destroy: =>
+      @process.kill()

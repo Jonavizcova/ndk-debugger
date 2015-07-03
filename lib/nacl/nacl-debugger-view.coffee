@@ -136,5 +136,7 @@ class NDKDebuggerView extends DebuggerView
               @GDB.exitFunction (result) ->
 
   destroy: ->
+    @consoleView.destroy()
+    @GDB.destroy()
     super
     @gdbPanel.destroy()

@@ -133,6 +133,8 @@ module.exports =
              alert(error.message);
       atomNdkPath
 
+    destroy: =>
+      @process.kill()
     # interrupt: (handler) ->
     #   alert('SIGINT')
     #   @process.kill 'SIGINT'

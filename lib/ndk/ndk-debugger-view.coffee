@@ -57,8 +57,8 @@ class NDKDebuggerView extends DebuggerView
       }]
     }
 
-    @gdbPanel = atom.workspace.addTopPanel(item: @, visible: true)
-    @panel = atom.workspace.addBottomPanel(item: @consoleView,visible: true)
+    @panel = atom.workspace.addTopPanel(item: @, visible: true)
+    @gdbPanel = atom.workspace.addBottomPanel(item: @consoleView,visible: true)
 
     @breakPoints = [];
     @loadBreakPoints()
@@ -148,5 +148,7 @@ class NDKDebuggerView extends DebuggerView
     super
 
   destroy: ->
-    super
+    @consoleView.destroy()
+    @GDB.destroy()
+    @panel.destroy()
     @gdbPanel.destroy()
